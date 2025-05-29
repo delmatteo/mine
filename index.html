@@ -5,386 +5,384 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scientific Research Platform</title>
     <style>
-        /* Keep all the previous CSS styles here - I'm just showing the new parts */
-        
-        /* Add this for cookie preferences modal */
-        .cookie-modal {
-            display: none;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background-color: #2c3e50;
+            padding: 15px 0;
             position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 2000;
+            top: 0;
+            z-index: 1000;
         }
-        
-        .cookie-modal-content {
-            background: white;
-            margin: 10% auto;
-            padding: 30px;
-            width: 80%;
-            max-width: 600px;
-            border-radius: 10px;
-            position: relative;
-        }
-        
-        .cookie-toggle {
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin: 15px 0;
-            padding: 10px;
-            background: #f8f9fa;
-            border-radius: 5px;
+            padding: 0 20px;
         }
-        
-        .toggle-switch {
-            position: relative;
-            width: 50px;
-            height: 24px;
-            background: #ccc;
-            border-radius: 24px;
-            cursor: pointer;
-            transition: background 0.3s;
+
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
         }
-        
-        .toggle-switch.active {
-            background: #3498db;
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
         }
-        
-        .toggle-slider {
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            width: 20px;
-            height: 20px;
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .submit-btn {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #2980b9;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        linear-gradient(135deg, #3498db 0%, #1abc9c 100%);
+            background-size: cover;
+            background-position: center;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 60px;
+        }
+
+        .hero-content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .hero-content p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        /* Statistics */
+        .stats {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .section {
             background: white;
-            border-radius: 50%;
-            transition: transform 0.3s;
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        
-        .toggle-switch.active .toggle-slider {
-            transform: translateX(26px);
+
+        .section h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .section p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        /* Cookie Banner - Simplified */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .cookie-banner.hidden {
+            display: none;
+        }
+
+        .cookie-text {
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .cookie-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .cookie-btn.primary {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .cookie-btn.secondary {
+            background-color: #ecf0f1;
+            color: #2c3e50;
+        }
+
+        .cookie-btn:hover {
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 15px;
+            }
+            
+            .hero-content h1 {
+                font-size: 32px;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .cookie-banner {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .cookie-text {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Previous HTML content stays the same until the cookie banner -->
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">frontiers</a>
+            <div class="nav-links">
+                <a href="#">About us</a>
+                <a href="#">All journals</a>
+                <a href="#">All articles</a>
+                <a href="#" class="submit-btn">Submit your research</a>
+                <a href="#">Login</a>
+            </div>
+        </div>
+    </nav>
 
-    <!-- Cookie Banner -->
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Where scientists<br>empower society</h1>
+            <p>Creating solutions for healthy lives on a healthy planet</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">3.3 million</div>
+                    <div class="stat-label">authors</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">11 million</div>
+                    <div class="stat-label">citations</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">3.7 billion</div>
+                    <div class="stat-label">article views and downloads</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="section">
+            <h2>Open Science Platform</h2>
+            <p>We are committed to making science open and accessible to everyone. Our platform provides researchers with the tools and resources they need to share their work with the world.</p>
+        </div>
+        
+        <div class="section">
+            <h2>Join Our Community</h2>
+            <p>Connect with millions of researchers worldwide. Share your findings, collaborate on projects, and advance human knowledge together.</p>
+        </div>
+
+        <div class="section">
+            <h2>Analytics Dashboard</h2>
+            <p>Check what data we're tracking:</p>
+            <button onclick="showData()" class="cookie-btn primary">Show Tracked Data</button>
+            <div id="dataDisplay" style="margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 5px; display: none;">
+                <h3>Tracked Information:</h3>
+                <div id="dataContent"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Simple Cookie Banner -->
     <div class="cookie-banner" id="cookieBanner">
         <div class="cookie-text">
             <strong>We use cookies</strong><br>
-            Our website uses cookies that are essential for its operation and additional cookies to track performance, analytics, and personalization. To manage your preferences, click Cookie Settings.
+            This website uses cookies to improve your experience. We track basic analytics to understand how our site is used.
         </div>
         <div class="cookie-buttons">
-            <button class="cookie-btn secondary" onclick="showCookieModal()">Cookie Settings</button>
-            <button class="cookie-btn secondary" onclick="rejectCookies()">Reject non-essential cookies</button>
-            <button class="cookie-btn primary" onclick="acceptAllCookies()">Accept all cookies</button>
-        </div>
-    </div>
-
-    <!-- Cookie Preferences Modal -->
-    <div class="cookie-modal" id="cookieModal">
-        <div class="cookie-modal-content">
-            <h2>Cookie Preferences</h2>
-            <p>We use different types of cookies to enhance your experience on our website.</p>
-            
-            <div class="cookie-toggle">
-                <div>
-                    <strong>Essential Cookies</strong><br>
-                    <small>Required for basic website functionality</small>
-                </div>
-                <div class="toggle-switch active" data-always-on="true">
-                    <div class="toggle-slider"></div>
-                </div>
-            </div>
-            
-            <div class="cookie-toggle">
-                <div>
-                    <strong>Analytics Cookies</strong><br>
-                    <small>Help us understand how visitors use our website</small>
-                </div>
-                <div class="toggle-switch" id="analyticsToggle" onclick="toggleCookie('analytics')">
-                    <div class="toggle-slider"></div>
-                </div>
-            </div>
-            
-            <div class="cookie-toggle">
-                <div>
-                    <strong>Personalization Cookies</strong><br>
-                    <small>Remember your preferences and settings</small>
-                </div>
-                <div class="toggle-switch" id="personalizationToggle" onclick="toggleCookie('personalization')">
-                    <div class="toggle-slider"></div>
-                </div>
-            </div>
-            
-            <div class="cookie-toggle">
-                <div>
-                    <strong>Marketing Cookies</strong><br>
-                    <small>Show you relevant content and advertisements</small>
-                </div>
-                <div class="toggle-switch" id="marketingToggle" onclick="toggleCookie('marketing')">
-                    <div class="toggle-slider"></div>
-                </div>
-            </div>
-            
-            <div style="margin-top: 20px; text-align: right;">
-                <button class="cookie-btn secondary" onclick="closeCookieModal()">Cancel</button>
-                <button class="cookie-btn primary" onclick="saveCookiePreferences()">Save Preferences</button>
-            </div>
+            <button class="cookie-btn secondary" onclick="rejectCookies()">Decline</button>
+            <button class="cookie-btn primary" onclick="acceptCookies()">Accept</button>
         </div>
     </div>
 
     <script>
-        // Cookie Management System
-        class CookieManager {
-            constructor() {
-                this.preferences = {
-                    essential: true,  // Always true
-                    analytics: false,
-                    personalization: false,
-                    marketing: false
-                };
-                this.loadPreferences();
-                this.initializeTracking();
-            }
-
-            // Set a cookie
-            setCookie(name, value, days = 365) {
-                const expires = new Date();
-                expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
-                document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/;SameSite=Lax`;
-            }
-
-            // Get a cookie
-            getCookie(name) {
-                const nameEQ = name + "=";
-                const ca = document.cookie.split(';');
-                for (let i = 0; i < ca.length; i++) {
-                    let c = ca[i];
-                    while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-                    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-                }
-                return null;
-            }
-
-            // Load saved preferences
-            loadPreferences() {
-                const saved = this.getCookie('cookiePreferences');
-                if (saved) {
-                    try {
-                        this.preferences = { ...this.preferences, ...JSON.parse(saved) };
-                        this.preferences.essential = true; // Always keep essential as true
-                    } catch (e) {
-                        console.error('Error loading cookie preferences:', e);
-                    }
-                }
-            }
-
-            // Save preferences
-            savePreferences() {
-                this.setCookie('cookiePreferences', JSON.stringify(this.preferences));
-                this.setCookie('cookieConsentGiven', 'true');
-                this.initializeTracking();
-            }
-
-            // Initialize tracking based on preferences
-            initializeTracking() {
-                if (this.preferences.analytics) {
-                    this.enableAnalytics();
-                }
-                if (this.preferences.personalization) {
-                    this.enablePersonalization();
-                }
-                if (this.preferences.marketing) {
-                    this.enableMarketing();
-                }
-            }
-
-            // Analytics tracking
-            enableAnalytics() {
-                console.log('Analytics enabled - tracking page views, user behavior');
-                
-                // Example: Track page views
-                this.trackPageView();
-                
-                // Example: Track user interactions
-                document.addEventListener('click', this.trackClick.bind(this));
-                
-                // In a real implementation, you would integrate with:
-                // Google Analytics, Adobe Analytics, etc.
-                // gtag('config', 'GA_MEASUREMENT_ID');
-            }
-
-            trackPageView() {
-                const pageData = {
-                    url: window.location.href,
-                    title: document.title,
-                    timestamp: new Date().toISOString(),
-                    userAgent: navigator.userAgent
-                };
-                
-                // Store locally for demo (in production, send to analytics service)
-                const pageViews = JSON.parse(localStorage.getItem('pageViews') || '[]');
-                pageViews.push(pageData);
-                localStorage.setItem('pageViews', JSON.stringify(pageViews));
-                
-                console.log('Page view tracked:', pageData);
-            }
-
-            trackClick(event) {
-                const clickData = {
-                    element: event.target.tagName,
-                    text: event.target.textContent?.substring(0, 50),
-                    timestamp: new Date().toISOString()
-                };
-                
-                console.log('Click tracked:', clickData);
-            }
-
-            // Personalization
-            enablePersonalization() {
-                console.log('Personalization enabled');
-                
-                // Example: Remember user preferences
-                this.loadUserPreferences();
-                
-                // Example: Customize content based on previous visits
-                this.customizeContent();
-            }
-
-            loadUserPreferences() {
-                const prefs = JSON.parse(localStorage.getItem('userPreferences') || '{}');
-                if (prefs.theme) {
-                    document.body.className = prefs.theme;
-                }
-                console.log('User preferences loaded:', prefs);
-            }
-
-            customizeContent() {
-                const visitCount = parseInt(localStorage.getItem('visitCount') || '0') + 1;
-                localStorage.setItem('visitCount', visitCount.toString());
-                
-                if (visitCount > 1) {
-                    console.log(`Welcome back! This is your ${visitCount}th visit.`);
-                    // Could show personalized content for returning users
-                }
-            }
-
-            // Marketing tracking
-            enableMarketing() {
-                console.log('Marketing enabled - tracking for ad targeting');
-                
-                // Track user interests based on content viewed
-                this.trackInterests();
-                
-                // In production, integrate with:
-                // Facebook Pixel, Google Ads, etc.
-            }
-
-            trackInterests() {
-                const interests = JSON.parse(localStorage.getItem('userInterests') || '[]');
-                
-                // Example: Track what sections user spends time on
-                const currentPage = window.location.pathname;
-                if (!interests.includes(currentPage)) {
-                    interests.push(currentPage);
-                    localStorage.setItem('userInterests', JSON.stringify(interests));
-                }
-                
-                console.log('User interests updated:', interests);
-            }
-
-            // Check if banner should be shown
-            shouldShowBanner() {
-                return !this.getCookie('cookieConsentGiven');
-            }
+        // Simple, reliable cookie management
+        function setCookie(name, value, days) {
+            const expires = new Date();
+            expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+            document.cookie = name + "=" + value + ";expires=" + expires.toUTCString() + ";path=/";
         }
 
-        // Initialize cookie manager
-        const cookieManager = new CookieManager();
-
-        // UI Functions
-        function showCookieModal() {
-            document.getElementById('cookieModal').style.display = 'block';
-            
-            // Set toggle states based on current preferences
-            updateToggleState('analyticsToggle', cookieManager.preferences.analytics);
-            updateToggleState('personalizationToggle', cookieManager.preferences.personalization);
-            updateToggleState('marketingToggle', cookieManager.preferences.marketing);
-        }
-
-        function closeCookieModal() {
-            document.getElementById('cookieModal').style.display = 'none';
-        }
-
-        function toggleCookie(type) {
-            cookieManager.preferences[type] = !cookieManager.preferences[type];
-            updateToggleState(type + 'Toggle', cookieManager.preferences[type]);
-        }
-
-        function updateToggleState(toggleId, isActive) {
-            const toggle = document.getElementById(toggleId);
-            if (isActive) {
-                toggle.classList.add('active');
-            } else {
-                toggle.classList.remove('active');
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
             }
+            return null;
         }
 
-        function acceptAllCookies() {
-            cookieManager.preferences = {
-                essential: true,
-                analytics: true,
-                personalization: true,
-                marketing: true
-            };
-            cookieManager.savePreferences();
-            hideCookieBanner();
+        function acceptCookies() {
+            setCookie('cookiesAccepted', 'true', 365);
+            startTracking();
+            hideBanner();
         }
 
         function rejectCookies() {
-            cookieManager.preferences = {
-                essential: true,
-                analytics: false,
-                personalization: false,
-                marketing: false
-            };
-            cookieManager.savePreferences();
-            hideCookieBanner();
+            setCookie('cookiesAccepted', 'false', 365);
+            hideBanner();
         }
 
-        function saveCookiePreferences() {
-            cookieManager.savePreferences();
-            closeCookieModal();
-            hideCookieBanner();
+        function hideBanner() {
+            document.getElementById('cookieBanner').classList.add('hidden');
         }
 
-        function hideCookieBanner() {
-            document.getElementById('cookieBanner').style.display = 'none';
+        function startTracking() {
+            // Simple page view tracking
+            const pageViews = JSON.parse(localStorage.getItem('pageViews') || '[]');
+            pageViews.push({
+                url: window.location.href,
+                time: new Date().toISOString(),
+                userAgent: navigator.userAgent.substring(0, 50) + "..."
+            });
+            localStorage.setItem('pageViews', JSON.stringify(pageViews));
+
+            // Track visits
+            const visitCount = parseInt(localStorage.getItem('visitCount') || '0') + 1;
+            localStorage.setItem('visitCount', visitCount);
+
+            console.log('Tracking started - visit #' + visitCount);
+        }
+
+        function showData() {
+            const display = document.getElementById('dataDisplay');
+            const content = document.getElementById('dataContent');
+            
+            const pageViews = JSON.parse(localStorage.getItem('pageViews') || '[]');
+            const visitCount = localStorage.getItem('visitCount') || '0';
+            const cookiesAccepted = getCookie('cookiesAccepted');
+
+            content.innerHTML = `
+                <p><strong>Total Visits:</strong> ${visitCount}</p>
+                <p><strong>Cookies Accepted:</strong> ${cookiesAccepted || 'Not set'}</p>
+                <p><strong>Page Views Recorded:</strong> ${pageViews.length}</p>
+                <p><strong>Last Visit:</strong> ${pageViews.length > 0 ? new Date(pageViews[pageViews.length - 1].time).toLocaleString() : 'None'}</p>
+            `;
+            
+            display.style.display = 'block';
         }
 
         // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            if (!cookieManager.shouldShowBanner()) {
-                hideCookieBanner();
+        window.addEventListener('load', function() {
+            const cookiesAccepted = getCookie('cookiesAccepted');
+            
+            if (cookiesAccepted === 'true') {
+                startTracking();
+                hideBanner();
+            } else if (cookiesAccepted === 'false') {
+                hideBanner();
             }
+            // If null, banner stays visible
         });
-
-        // Demo function to show tracked data (for testing purposes)
-        function showTrackedData() {
-            console.log('=== TRACKED DATA ===');
-            console.log('Page Views:', JSON.parse(localStorage.getItem('pageViews') || '[]'));
-            console.log('User Interests:', JSON.parse(localStorage.getItem('userInterests') || '[]'));
-            console.log('Visit Count:', localStorage.getItem('visitCount'));
-            console.log('Cookie Preferences:', cookieManager.preferences);
-        }
-
-        // Call this in console to see what data is being tracked
-        window.showTrackedData = showTrackedData;
     </script>
 </body>
 </html>
