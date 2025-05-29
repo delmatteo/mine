@@ -383,6 +383,21 @@
             }
             // If null, banner stays visible
         });
+        window.showTrackedData = function() {
+    console.log('=== TRACKED DATA ===');
+    console.log('Page Views:', JSON.parse(localStorage.getItem('pageViews') || '[]'));
+    console.log('Visit Count:', localStorage.getItem('visitCount') || '0');
+    console.log('Cookies Accepted:', getCookie('cookiesAccepted') || 'Not set');
+    console.log('Current Cookies:', document.cookie || 'None');
+    console.log('===================');
+    
+    // Show a summary
+    const pageViews = JSON.parse(localStorage.getItem('pageViews') || '[]');
+    if (pageViews.length > 0) {
+        console.log('First visit:', new Date(pageViews[0].time).toLocaleString());
+        console.log('Last visit:', new Date(pageViews[pageViews.length - 1].time).toLocaleString());
+    }
+}
     </script>
 </body>
 </html>
